@@ -1,0 +1,39 @@
+<div class="modal fade general-modal" id="authJsMfaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg general-modal" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Your Actions</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body general-modal">
+        <center>
+          <form id="authJsMfaModalForm">
+              <div class="form-group">
+                  <label for="otpCode" class="col-form-label">OTP code</label>
+                  <input type="text" class="form-control border" placeholder=" " name="passCode" id="authOtpCode" required="">
+              </div>
+             <div class="right-w3l">
+                  <input type="submit" class="form-control border text-white" value="Login">
+              </div>
+              <div class="row sub-w3l my-3">
+                  <div class="col sub-agile">
+                      <input type="checkbox" id="smsMfaRemember" value="">
+                      <label for="smsMfaRemember" class="text-muted">
+                          <span></span>Remember me?</label>
+                  </div>
+                  <div class="col forgot-w3l text-right text-dark">
+                      <a href="#" class="text-white">Forgot Password?</a>
+                  </div>
+              </div>
+              <p class="text-center">Don't have an account?
+                  <a href="#" data-toggle="modal" data-target="#exampleModal1" class="text-dark font-weight-bold">
+                      Register Now</a>
+              </p>
+          </form>
+        </center>
+      </div>
+    </div>
+  </div>
+</div>

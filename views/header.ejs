@@ -1,0 +1,163 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html lang="zxx">
+
+<head>
+	<title>AVBank</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta name="keywords" content="AVBank sample application for Okta" />
+  <!-- FIXME: Move this code elsewhere -->
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<!-- Bootstrap Core CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- Custom CSS -->
+	<link href="css/style.css" rel='stylesheet' type='text/css' />
+	<!-- font-awesome icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	<!-- //Custom Theme files -->
+	<!--webfonts-->
+	<link href="//fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+	    rel="stylesheet">
+  <script src="https://ok1static.oktacdn.com/assets/js/sdk/okta-auth-js/1.17.0/okta-auth-js.min.js"type="text/javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <link href="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.13.0/css/okta-sign-in.min.css" type="text/css" rel="stylesheet"/>
+  <script src="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.13.0/js/okta-sign-in.min.js" type="text/javascript"></script>
+	<!-- //webfonts -->
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <!-- Make Okta configuration available in a global variable-->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/ace.js"></script>
+  <script>
+  var config = {
+    url: '<%= oidcConfig.url %>',
+    issuer: '<%= oidcConfig.issuer %>',
+    clientId: '<%= oidcConfig.client_id %>',
+    redirectUri: '<%= oidcConfig.redirect_uri%>',
+    tokenManager: {
+      storage: 'sessionStorage'
+    },
+  };
+    
+  <% if(locals.tokens){ %>
+  var tokens = {
+    access_token: '<%= tokens.access_token %>',
+    id_token: '<%= tokens.id_token %>',
+  };
+  <% } %>
+  </script>
+</head>
+
+<body>
+	<!-- header -->
+	<header>
+		<div class="container">
+			<!-- nav -->
+			<nav class="navbar navbar-expand-lg navbar-light py-4">
+				<!-- logo -->
+				<h1>
+					<a class="navbar-brand" href="/accountPage">AVBank</a>
+				</h1>
+				<!-- //logo -->
+				<button class="navbar-toggler ml-md-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+				    aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<!-- main nav -->
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav ml-lg-auto text-center">
+						<li class="nav-item active  mr-lg-3">
+							<a class="nav-link" href="index">Home
+								<span class="sr-only">(current)</span>
+							</a>
+						</li>
+						<li class="nav-item mr-lg-3">
+							<a class="nav-link" href="about">about</a>
+						</li>
+						<li class="dropdown nav-item">
+							<a href="#" data-toggle="dropdown" class="nav-link">
+								Pages
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu multi-level" role="menu">
+								<li class="nav-item">
+									<a href="portfolio" class="nav-link">Portfolio</a>
+								</li>
+								<li class="nav-item">
+									<a href="blog" class="nav-link">Blog</a>
+								</li>
+								<li class="nav-item">
+									<a href="maintenance" class="nav-link">Maintenance</a>
+								</li>
+								<li class="nav-item">
+									<a href="error" class="nav-link">404</a>
+								</li>
+							</ul>
+						</li>
+            <li class="dropdown nav-item">
+							<a href="#" data-toggle="dropdown" class="nav-link">
+								Okta Resources
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu multi-level" role="menu">
+								<li class="nav-item">
+									<a href="/apiintro" class="nav-link">Api Intro</a>
+								</li>
+                <li class="nav-item">
+									<a href="/howto" class="nav-link">How Tos</a>
+								</li>
+                <li class="nav-item">
+									<a href="https://portalavb.glitch.me/apps" class="nav-link">Portal</a>
+								</li>
+							</ul>
+						</li>
+						<li class="nav-item mr-lg-3">
+							<a class="nav-link" href="services">Services</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="contact">contact</a>
+						</li>
+						<li>
+              <!-- FIXME: Move this elsewhere -->
+							<script>
+							var toLogin = function() {
+								window.location = "/accountPage"
+							}
+							</script>
+           <!-- Use locals.user here to avoid an error if "user" isn't defined. -->
+           <% if(locals.user){ %>
+            <button type="button" class="btn btn-danger ml-lg-5 w3ls-btn" data-toggle="modal" aria-pressed="false" data-target="#exampleModal">
+              Security Settings
+            </button>
+            <a class="btn btn-danger ml-lg-5 w3ls-btn" href="/logout">Logout</a>
+           <% } else if (locals.customLogin) { %>  
+              <button type="button" class="btn btn-danger ml-lg-5 w3ls-btn" data-toggle="modal" data-target="#exampleModal" aria-pressed="false">
+							  Custom Login
+							</button>
+           <% } else { %>  
+             	<button id="login" onclick="toLogin()" type="button" class="btn btn-danger ml-lg-5 w3ls-btn" data-toggle="modal" aria-pressed="false">
+								Login
+							</button>
+          <% } %>
+						</li>
+					</ul>
+				</div>
+				<!-- //main nav -->
+			</nav>
+			<!-- //nav -->
+		</div>
+	</header>
+	<!-- //header -->

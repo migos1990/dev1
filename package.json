@@ -1,0 +1,24 @@
+{
+  "name": "AVBank",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "NODE_PATH=/usr/local/lib node server.js"
+  },
+  "dependencies": {
+    "@okta/jwt-verifier": "0.0.11",
+    "@okta/oidc-middleware": "1.0.2",
+    "@okta/okta-auth-js": "^2.0.1",
+    "@okta/okta-sdk-nodejs": "^1.2.0",
+    "config.json": "0.0.4",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "http-errors": "~1.6.2",
+    "morgan": "^1.9.1",
+    "request": "^2.88.0"
+  }
+}

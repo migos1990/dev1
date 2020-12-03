@@ -1,0 +1,137 @@
+<%- include('header') -%>
+<!-- Not needed? -->
+<h1>
+  <style>
+     #editor { 
+        position: relative;
+        top: 0;
+       max-width: 100%;
+       min-width: 100%;
+       min-height: 100vh;
+      max-height: 100vh;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+  </style>
+   <div class="row">
+    <div class="col-sm-6" style="background-color:lavender;">
+      <button type="button" onclick="setCode()" class="btn btn-danger">Set</button><button type="button" onclick="resetCode()" class="btn btn-danger">Reset</button>
+      <div id="editor">
+    
+signInWidgetConfig = {
+  // Enable or disable widget functionality with the following options. Some of these features require additional configuration in your Okta admin settings. Detailed information can be found here: https://github.com/okta/okta-signin-widget#okta-sign-in-widget
+  // Look and feel changes:
+  logo: '//logo.clearbit.com/okta.com',           // Try changing "okta.com" to other domains, like: "workday.com", "splunk.com", or "delmonte.com"
+  language: 'en',                                 // Try: [fr, de, es, ja, zh-CN] Full list: https://github.com/okta/okta-signin-widget#language-and-text
+  i18n: {
+    //Overrides default text when using English. Override other languages by adding additional sections.
+    'en': {
+      'primaryauth.title': 'Sign In',             // Changes the sign in text
+      'primaryauth.submit': 'Sign In',            // Changes the sign in button
+      // More e.g. [primaryauth.username.placeholder,  primaryauth.password.placeholder, needhelp, etc.].
+      // Full list here: https://github.com/okta/okta-signin-widget/blob/master/packages/@okta/i18n/dist/properties/login.properties
+    }
+  },
+  features: {
+    registration: true,                           // Enable self-service registration flow
+    rememberMe: true,                             // Setting to false will remove the checkbox to save username
+    //multiOptionalFactorEnroll: true,            // Allow users to enroll in multiple optional factors before finishing the authentication flow.
+    //selfServiceUnlock: true,                    // Will enable unlock in addition to forgotten password
+    //smsRecovery: true,                          // Enable SMS-based account recovery
+    //callRecovery: true,                         // Enable voice call-based account recovery
+    router: true,                                 // Leave this set to true for this demo
+  },
+  baseUrl: '<%= oidcConfig.url %>',
+  clientId: '<%= oidcConfig.client_id %>',
+  redirectUri: window.location.origin + "/accountPage",
+  authParams: {
+    issuer: '<%= oidcConfig.issuer %>',
+    responseType: ['id_token', 'token'],
+    scopes: ['openid'],
+  },
+};
+
+signInWidget = new OktaSignIn(signInWidgetConfig);
+
+function widgetSuccessCallback(res) {
+        var key = '';
+        if (res[0]) {
+          key = Object.keys(res[0])[0];
+          signInWidget.tokenManager.add(key, res[0]);
+        }
+        if (res[1]) {
+          key = Object.keys(res[1])[0];
+          signInWidget.tokenManager.add(key, res[1]);
+        }
+        if (res.status === 'SUCCESS') {
+          oktaToken = signInWidget.tokenManager.get(key);
+          console.log(oktaToken);
+          window.location = window.location.origin + "/accountPage"
+        }
+}
+
+function widgetErrorCallback (err) {
+}
+
+if(signInWidget.token.hasTokensInUrl()) {
+  signInWidget.token.parseTokensFromUrl(
+    function success(res) {
+      // Save the tokens for later use, e.g. if the page gets refreshed:
+      signInWidget.tokenManager.add('accessToken', res[0]);
+      signInWidget.tokenManager.add('idToken', res[1]);
+      // Remove the tokens from the window location hash
+      window.location.hash='';
+      window.location = window.location.origin + "/accountPage"
+    },
+    function error(err) {
+      console.error(err);
+    }
+  );
+} else {
+  signInWidget.renderEl({el: '#oktaTwo'}, widgetSuccessCallback, widgetErrorCallback);
+}
+
+  </div>
+     </div>
+    <div class="col-sm-6" style="background-color:lavenderblush;"><div id="oktaTwo"></div></div>
+  </div>
+
+
+    
+
+<script>
+  
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/javascript");
+    var code = editor.getValue()
+    var originalCode = code
+    if(localStorage.getItem('code')) {
+      var userEditedCode = localStorage.getItem('code')
+      editor.setValue(userEditedCode)
+      eval(userEditedCode)
+    } else {
+      eval(code)
+    }
+    
+    var setCode = function() {
+      var newCode = editor.getValue()
+      localStorage.setItem('code', newCode);
+      window.location.reload();
+    }
+    
+    var resetCode = function() {
+      var newCode = editor.getValue()
+      localStorage.setItem('code', originalCode);
+      window.location.reload();
+    }
+    
+    
+    
+    
+    
+</script>
+    </section>
+</h1>
+<%- include('footer') -%>

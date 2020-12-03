@@ -1,0 +1,339 @@
+	<!-- footer top -->
+	<section class="footerw3-top">
+		<div class="container">
+			<!-- footer top row -->
+			<div class="row py-5">
+				<div class="col-md-4">
+					<img src="<%= assetsUrl %>f1.png" alt="" class="img-fluid">
+					<h4 class="feed-title my-3">Email and Live Chat
+						<span>24/0</span>
+					</h4>
+					<p>This is just a sample application, it has no support</p>
+				</div>
+				<div class="col-md-4 my-md-0 my-4">
+					<img src="<%= assetsUrl %>f2.png" alt="" class="img-fluid">
+					<h4 class="feed-title my-3">Want to learn more?
+						<span>Contact Okta</span>
+					</h4>
+          <p>
+            USA: (800) 588-1656<br>
+            Europe: +44 (800) 3688930<br>
+            Australia: +61 283104484
+          </p>
+				</div>
+				<div class="col-md-4">
+					<img src="<%= assetsUrl %>f3.png" alt="" class="img-fluid">
+					<h4 class="feed-title my-3">creative thoughts
+						<span>information</span>
+					</h4>
+					<p>Be a leader in your cultural ecosystem with quality thought leadership</p>
+				</div>
+
+			</div>
+			<!-- //footer top row -->
+		</div>
+	</section>
+	<!-- footer top -->
+	<!-- footer -->
+	<footer class="py-sm-5">
+		<div class="container">
+			<div class="row">
+				<!-- footer grid1 -->
+				<div class="col-lg-3 col-sm-6">
+					<h2>
+						<a class="navbar-brand" href="index">
+							AVBank
+						</a>
+					</h2>
+          <div class="fv3-contact">
+            <p>
+              A sample application from your friends at Okta
+            </p>
+          </div>
+					<div class="fv3-contact mt-3">
+						<span class="fas fa-home mr-2"></span>
+						<p>100 1st St, SF, CA 94105</p>
+					</div>
+					<div class="fv3-contact">
+						<span class="fas fa-phone-volume mr-2"></span>
+						<p>(800) 588-1656</p>
+					</div>
+					<div class="fv3-contact">
+						<span class="fas fa-envelope-open mr-2"></span>
+						<a href="mailto:info@okta.com" class="text-secondary">info@okta.com</a>
+					</div>
+				</div>
+				<!-- //footer grid1 -->
+				<!-- footer grid2 -->
+				<div class="col-lg-3  col-sm-6 footv3-left text-lg-center my-sm-0 mt-5">
+					<h3 class="mb-3">our services</h3>
+					<ul class="list-agileits">
+						<li>
+							<a href="#">Mortgage</a>
+						</li>
+						<li class="my-3">
+							<a href="#">Investments</a>
+						</li>
+						<li class="mb-3">
+							<a href="#">Finance</a>
+						</li>
+						<li>
+              <a href="<%= editLink %>">Edit this sample</a>
+            </li>
+					</ul>
+				</div>
+				<!-- //footer grid2 -->
+				<!-- footer grid3 -->
+				<div class="col-lg-3  col-sm-6 footv3-left text-lg-center my-lg-0 mt-sm-5 mt-5">
+					<h3 class="mb-3">Navigation</h3>
+					<ul class="list-agileits">
+						<li>
+							<a href="index">
+								Home
+							</a>
+						</li>
+						<li class="my-3">
+							<a href="about">
+								About Us
+							</a>
+						</li>
+						<li class="mb-3">
+							<a href="services">
+								Services
+							</a>
+						</li>
+						<li>
+							<a href="contact">
+								Contact Us
+							</a>
+						</li>
+					</ul>
+				</div>
+				<!-- //footer grid3 -->
+				<!-- footer grid4  -->
+				<div class="col-lg-3  col-sm-6 footv3-left my-lg-0 mt-5">
+					<h3 class="mb-3">subscribe to newsletter</h3>
+					<form method="post">
+						<div class="form-group">
+							<input type="email" class="form-control  bg-dark border-0" id="email" placeholder="Enter email" name="email" required disabled>
+						</div>
+						<div class="form-group">
+							<input type="Submit" class="form-control bg-secondary text-white border-0" id="sub" value="submit" name="sub" disabled>
+						</div>
+					</form>
+				</div>
+				<!-- //footer grid4 -->
+			</div>
+			<div class="cpy-right text-center  pt-5 pb-sm-0 pb-3">
+				<p class="text-secondary">© 2018 AVBank. All rights reserved | Design by
+					<a href="http://w3layouts.com" class="text-white"> W3layouts.</a>
+				</p>
+			</div>
+		</div>
+		<!-- //footer container -->
+	</footer>
+	<!-- //footer -->
+	<!-- Login modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Login</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+          <script>
+
+var authClient = new OktaAuth(config); // config is defined in views/header.ejs
+//// jpf commented out
+// window.alert("TEST")
+$( document ).ready(function() {
+  $("#loginForm").submit(function( event ) {
+    event.preventDefault();
+  });
+})
+
+authClient.session.get()
+.then(function(session) {
+  console.log(session)
+})
+.catch(function(err) {
+  // not logged in
+});
+
+var do_login = function() {
+  authClient.signIn({
+    username: $("input[name='Name']").val(),
+    password: $("input[name='Password']").val()
+  })
+  .then(function(transaction) {
+    if (transaction.status === 'SUCCESS') {
+      // Step #1: get sessionToken
+      console.log('sessionToken = ', transaction.sessionToken);
+      authClient.session.setCookieAndRedirect(transaction.sessionToken, window.location.origin + "/accountPage");
+
+    } else {
+      console.log(transaction)
+      var smsFactor = transaction.factors.find(function(factor) {
+        return factor.provider === 'OKTA' && factor.factorType === 'sms';
+      });
+      $("#authJsMfaModal").modal("show")
+      smsFactor.verify(); // sends otp code to andrew
+      $('#authJsMfaModal').on('shown.bs.modal', function (e) {
+        $("#exampleModal").modal("hide")
+          $("body").on("submit", "#authJsMfaModalForm", function(e) {
+            e.preventDefault();
+            var code = $("#authOtpCode").val()
+            var result= smsFactor.verify({
+              passCode: code
+            }).then(function(session) {
+              authClient.session.setCookieAndRedirect(session.sessionToken, window.location.origin + "/accountPage");
+            })
+        })
+      })
+    }
+  })
+  .fail(function(err) {
+    console.error(err);
+  });
+}
+  
+          </script>
+					<form id="loginForm">
+						<div class="form-group">
+							<label for="recipient-name" class="col-form-label">Username</label>
+							<input type="text" class="form-control border" placeholder=" " name="Name" id="recipient-name" required="">
+						</div>
+						<div class="form-group">
+							<label for="password" class="col-form-label">Password</label>
+							<input type="password" class="form-control border" placeholder=" " name="Password" id="password" required="">
+						</div>
+						  <div class="right-w3l">
+                <input onclick="do_login()" type="submit" class="form-control border text-white" value="Login">
+              </div>
+						<div class="row sub-w3l my-3">
+							<div class="col sub-agile">
+								<input type="checkbox" id="brand1" value="">
+								<label for="brand1" class="text-muted">
+									<span></span>Remember me?</label>
+							</div>
+							<div class="col forgot-w3l text-right text-dark">
+								<a href="#" class="text-white">Forgot Password?</a>
+							</div>
+						</div>
+						<p class="text-center">Don't have an account?
+							<a href="#" data-toggle="modal" data-target="#exampleModal1" class="text-dark font-weight-bold">
+								Register Now</a>
+						</p>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //Login modal -->
+	<!-- Register modal -->
+	<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel1">Register</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="#" method="post">
+						<div class="form-group">
+							<label for="recipient-name" class="col-form-label">Username</label>
+							<input type="text" class="form-control border" placeholder=" " name="Name" id="recipient-rname" required="">
+						</div>
+						<div class="form-group">
+							<label for="recipient-email" class="col-form-label">Email</label>
+							<input type="email" class="form-control border" placeholder=" " name="Email" id="recipient-email" required="">
+						</div>
+						<div class="form-group">
+							<label for="password1" class="col-form-label">Password</label>
+							<input type="password" class="form-control border" placeholder=" " name="Password" id="password1" required="">
+						</div>
+						<div class="form-group">
+							<label for="password2" class="col-form-label">Confirm Password</label>
+							<input type="password" class="form-control border" placeholder=" " name="Confirm Password" id="password2" required="">
+						</div>
+						<div class="sub-w3l">
+							<div class="sub-agile">
+								<input type="checkbox" id="brand2" value="">
+								<label for="brand2" class="mb-3">
+									<span></span>I Accept to the Terms & Conditions</label>
+							</div>
+						</div>
+						<div class="right-w3l">
+							<input type="submit" class="form-control bg-light text-white" value="Register">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- // Register modal -->
+	<!-- subscribe form -->
+	<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel2">Subscribe now!</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="#" method="post">
+						<div class="form-group">
+							<label for="recipient-name" class="col-form-label">Email</label>
+							<input type="email" class="form-control border" placeholder=" " name="email" id="usermail" required="">
+						</div>
+						<div class="right-w3l">
+							<input type="submit" class="form-control text-white" value="Subscribe">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //subscribe form -->
+	<!-- js-->
+	<!--  magnific-popup  -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/0.9.9/jquery.magnific-popup.min.js" integrity="sha256-xnQyF8m1JWRtd/ab+4yuhZyBkeyTPI9crkWaM4sA/Ss=" crossorigin="anonymous"></script>
+	<script>
+		//script for magnific pop up (about section)
+		$(document).ready(function () {
+			$('.popup-with-zoom-anim').magnificPopup({
+				type: 'inline',
+				fixedContentPos: false,
+				fixedBgPos: true,
+				overflowY: 'auto',
+				closeBtnInside: true,
+				preloader: false,
+				midClick: true,
+				removalDelay: 300,
+				mainClass: 'my-mfp-zoom-in'
+			});
+		});
+	</script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+	<!-- easing -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.1.2/jquery.easing.min.js" integrity="sha256-NBEaYAimJN8qZWE/WaylrkyQpNRfiF1PNs77yHaLsnk=" crossorigin="anonymous"></script>
+	<!--  necessary snippets for few javascript files -->
+	<script src="/js/AVBank.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="/js/accountVue.js"></script>
+<!--  necessary snippets for few javascript files -->
+<script src="/js/AVBank.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<!-- <script src="/js/bootstrap.js "></script> -->
+<script src="/js/oktaAuth.js "></script>
+</body>
+
+</html>
